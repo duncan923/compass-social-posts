@@ -1,5 +1,5 @@
 {
- "status": "ready",
+ "status": "done",
  "send_date": "2026-10-27",
  "issue": "TEST",
  "campaign_json": "{\"type\": \"regular\", \"recipients\": {\"list_id\": \"d1ad6c7464\", \"segment_opts\": {\"match\": \"all\", \"conditions\": [{\"condition_type\": \"EmailAddress\", \"field\": \"EMAIL\", \"op\": \"is\", \"value\": \"duncan@compass-estates.co.uk\"}]}}, \"settings\": {\"subject_line\": \"TEST: newsletter automation check\", \"preview_text\": \"Only Duncan should receive this\", \"title\": \"TEST automation check (safe to delete)\", \"from_name\": \"Duncan Ure\", \"reply_to\": \"duncan@compass-estates.co.uk\"}}",
