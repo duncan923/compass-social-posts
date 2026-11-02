@@ -37,7 +37,10 @@ The Monday scheduled task follows this file. It builds 14 posts for Tuesday to M
 
 ## 3. Build
 
-1. Write `posts.py` for the week. Copy `tools/example-week/posts.py` for the schema. Template keys are T1 (listing), SELLER, REVIEW2 and STAT.
+1. Write `posts.py` for the week. Copy `weeks/2026-11-03/posts.py` for the schema (the approved mixed-layout week). Mix layouts so the feed never repeats one format; never use the same layout twice in a row, and vary caption openers (question, number, scene, numbered list, feature list). Template keys:
+   - Listings: T1 (classic spec strip), LIGHT (off-white, framed photo, spec strip), HERO (full-bleed photo-led, `sub` optional), FIGURE (one big gold `figure` + `figure_label`, `figure_note`), FEATURES (three `features` lines with the compass symbol).
+   - Seller: SELLER (navy), SELLER_LIGHT (off-white), SPLIT (portrait left, stacked strip right, `sub` optional), STAT3 (three stat cards over a photo), REVIEW2, STAT.
+   - Every seller layout keeps a strong photo plus a 3-part gold strip.
 2. Set the environment variables:
    ```
    export CS_WEEK=<work dir with posts.py>

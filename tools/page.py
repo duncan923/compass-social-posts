@@ -1,7 +1,7 @@
 import json, html, os, datetime as dt
 WEEK=os.environ['CS_WEEK']; w=json.load(open(os.path.join(WEEK,'out','week.json'))); e=html.escape
 TITLE=os.environ.get('CS_TITLE','Compass Week Posts')
-TYPE={'T1':'Listing','T5':'Proof: under offer','CTA':'Seller','REVIEW':'Review','STAT':'Proof: price and speed','REVIEW2':'Review','SELLER':'Seller'}
+TYPE={'T1':'Listing','T5':'Proof: under offer','CTA':'Seller','REVIEW':'Review','STAT':'Proof: price and speed','REVIEW2':'Review','SELLER':'Seller','HERO':'Listing','LIGHT':'Listing','FIGURE':'Listing','FEATURES':'Listing','SPLIT':'Seller','SELLER_LIGHT':'Seller','STAT3':'Proof'}
 cards=[]
 for p in sorted(w,key=lambda x:x['slot']):
     d=dt.datetime.fromisoformat(p['slot'])
@@ -11,6 +11,13 @@ for p in sorted(w,key=lambda x:x['slot']):
 <div class="body"><img src="posts/post-{p['id']}.jpg" alt="Post {p['id']} graphic" loading="lazy" width="1080" height="1350">
 <div class="copy">{flag}<h3>Facebook caption</h3><pre>{e(p['fb'])}</pre><details><summary>Instagram caption</summary><pre>{e(p['ig'])}</pre></details></div></div></article>''')
 need=sum(1 for p in w if p['check'])
+nlist=sum(1 for p in w if p['kind']=='listing')
+_ds=sorted(dt.datetime.fromisoformat(p['slot']) for p in w)
+RANGE=f"{_ds[0].strftime('%A %-d %B')} to {_ds[-1].strftime('%A %-d %B')}"
+SINCE=os.environ.get('CS_SINCE','the last 8 weeks')
+_np=os.path.join(WEEK,'notes.html'); NOTES=open(_np).read() if os.path.exists(_np) else ''
+s_css='.notes{background:var(--warnbg);color:var(--warnfg);border-radius:6px;padding:16px 18px;max-width:72ch} .notes h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px} .notes ul{margin:0;padding-left:18px} .notes li{margin:4px 0}'
+
 page=f'''<title>{TITLE}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Instrument+Sans:wght@400;600;700&display=swap">
@@ -43,11 +50,13 @@ pre{{white-space:pre-wrap;font-family:var(--body);font-size:14px;margin:0}}
 details summary{{cursor:pointer;font-size:13px;font-weight:600;color:var(--goldtext)}}
 .flag{{background:var(--warnbg);color:var(--warnfg);border-radius:3px;padding:10px 12px;font-size:14px}}
 @media (max-width:700px){{.body{{grid-template-columns:1fr}}}}
+{s_css}
 </style>
 <div class="wrap">
-<header><div class="eyebrow">Tuesday 27 October to Monday 2 November</div><h1>This week's 14 posts</h1>
+<header><div class="eyebrow">{RANGE}</div><h1>This week's 14 posts</h1>
 <p class="lede">Everything below is built and waiting. Nothing is scheduled until you approve. Facebook at 08:00 and 13:00 every day, with an Instagram copy of each post.</p></header>
-<div class="summary"><span><b>8</b> listing posts</span><span><b>6</b> seller posts</span><span>Every hook checked against posts since 30 July</span><span><b>{need}</b> need something from you</span></div>
+<div class="summary"><span><b>{nlist}</b> listing posts</span><span><b>{len(w)-nlist}</b> seller posts</span><span>Every hook checked against posts since {SINCE}</span><span><b>{need}</b> need something from you</span></div>
+{NOTES}
 <div class="approve">To approve, reply in the chat with <code>approved</code>, or <code>approved except 7, 9</code> to hold some back. Corrections go in the same reply, for example <code>6: 6 days</code>.</div>
 {''.join(cards)}
 </div>'''

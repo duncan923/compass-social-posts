@@ -90,7 +90,76 @@ def review2(p):
 <div style="position:absolute;top:1035px;left:64px;right:64px;display:flex">{''.join(f'<div style="flex:1;{"padding-right:22px" if i==0 else "padding:0 22px;border-left:1px solid rgba(224,185,64,.6)"}"><div class="serif" style="font-size:46px;line-height:1.05;color:#E0B940">{e(a)}</div><div style="font-size:19px;color:rgba(255,255,255,.82);margin-top:8px">{e(b)}</div></div>' for i,(a,b) in enumerate(p['strip']))}</div>
 <div style="position:absolute;left:64px;right:64px;bottom:64px;border-top:1px solid rgba(255,255,255,.14);padding-top:22px;display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-weight:600;font-size:18px;letter-spacing:.12em;color:#E0B940">BOOK YOUR FREE VALUATION</div><div class="serif" style="font-size:40px;color:#E0B940;margin-top:4px">duncanure.co.uk/valuation</div></div><img src="{LOGO_W}" style="height:70px"></div>'''
 
-R = dict(SELLER=seller, REVIEW2=review2, T1=t1, T5=t5, CTA=cta, REVIEW=review, STAT=stat)
+# ---- Extra layouts so the feed doesn't repeat one format every post ----
+NAVY='#252A3A'; INK='#363C52'; GOLD='#E0B940'; GOLDTXT='#97781F'; OFF='#F2F3F0'
+def img(src, x, y, w, h, pos='center'):
+    return f'<img src="file://{src}" style="position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;object-fit:cover;object-position:{pos}">'
+def ph(p): return PH/p['photo']
+def cta_btn(style=''): return f'<div style="background:{GOLD};color:{INK};border-radius:3px;font-weight:700;font-size:20px;letter-spacing:.06em;padding:20px 26px;{style}">DM ME TO BOOK A VIEWING</div>'
+def price_block(price, col='#fff', pcol=GOLD, lab='rgba(255,255,255,.7)', fs=64):
+    return f'<div><div style="font-weight:600;font-size:18px;letter-spacing:.12em;color:{lab}">OFFERS OVER</div><div class="serif" style="font-size:{fs}px;line-height:1.05;color:{pcol}">{e(price)}</div></div>'
+def foot_seller(dark=True):
+    t = 'rgba(255,255,255,.8)' if dark else 'rgba(54,60,82,.8)'; u = GOLD if dark else GOLDTXT; lg = LOGO_W if dark else LOGO_N
+    return f'<div style="position:absolute;left:64px;right:64px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end"><div style="font-size:22px;line-height:1.4;color:{t}">Selling? See what yours is worth at<br><span style="color:{u}">duncanure.co.uk/valuation</span></div><img src="{lg}" style="height:{70 if dark else 52}px"></div>'
+
+def hero(p):
+    """Photo-led: full-bleed photo, headline and price over a navy gradient."""
+    return f'''{img(ph(p),0,0,1080,1350,p.get('pos','center'))}<div style="position:absolute;left:0;right:0;top:560px;bottom:0;background:linear-gradient(180deg,rgba(37,42,58,0) 0%,rgba(37,42,58,.82) 38%,rgba(37,42,58,.97) 70%)"></div>{badge(p.get('badge'))}
+<div style="position:absolute;left:64px;right:64px;bottom:330px">{eyebrow(p['town'])}<div class="serif" style="font-size:{p.get('hfs',76)}px;line-height:1.05;color:#fff;margin-top:16px">{e(p['headline'])}</div>{f'<div style="font-size:26px;line-height:1.4;color:rgba(255,255,255,.85);margin-top:18px">{e(p["sub"])}</div>' if p.get('sub') else ''}</div>
+<div style="position:absolute;left:64px;right:64px;bottom:170px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(224,185,64,.6);padding-top:24px">{price_block(p['price'])}{cta_btn()}</div>
+{foot_seller()}'''
+
+def light(p):
+    """Off-white ground, framed photo, navy type."""
+    spec = ''.join(f'<div style="flex:1;{"padding-right:24px" if i==0 else "padding:0 24px;border-left:1px solid rgba(151,120,31,.5)"}"><div class="serif" style="font-size:46px;line-height:1;color:{INK}">{e(a)}</div><div style="font-weight:600;font-size:15px;letter-spacing:.12em;color:rgba(54,60,82,.7);margin-top:10px">{e(b)}</div></div>' for i,(a,b) in enumerate(p['spec']))
+    return f'''<div style="position:absolute;inset:0;background:{OFF}"></div>{img(ph(p),64,64,952,640,p.get('pos','center'))}<div style="position:absolute;left:52px;top:52px;width:976px;height:664px;border:1px solid {GOLD}"></div>{f'<div style="position:absolute;top:96px;left:96px;background:rgba(37,42,58,.9);border-left:4px solid {GOLD};border-radius:3px;color:#fff;font-weight:600;font-size:24px;letter-spacing:.12em;padding:14px 20px">{e(p["badge"])}</div>' if p.get('badge') else ''}
+<div style="position:absolute;top:760px;left:64px;right:64px">{eyebrow(p['town'], INK)}<div class="serif" style="font-size:66px;line-height:1.05;color:{INK};margin-top:14px">{e(p['headline'])}</div></div>
+<div style="position:absolute;top:935px;left:64px;right:64px;display:flex">{spec}</div>
+<div style="position:absolute;top:1060px;left:64px;right:64px;display:flex;justify-content:space-between;align-items:flex-end">{price_block(p['price'], pcol=INK, lab='rgba(54,60,82,.7)', fs=60)}{cta_btn()}</div>
+{foot_seller(False)}'''
+
+def figure(p):
+    """One big gold figure carries the post."""
+    return f'''{img(ph(p),0,0,1080,640,p.get('pos','center'))}<div style="position:absolute;top:520px;left:0;right:0;height:120px;background:linear-gradient(180deg,rgba(37,42,58,0),{NAVY})"></div>{badge(p.get('badge'))}
+<div style="position:absolute;top:640px;left:64px;right:64px">{eyebrow(p['town'])}<div class="serif" style="font-size:50px;line-height:1.1;color:#fff;margin-top:14px">{e(p['headline'])}</div>
+<div class="serif" style="font-size:{p.get('ffs',92)}px;line-height:1;color:{GOLD};margin-top:34px">{e(p['figure'])}</div><div style="font-weight:600;font-size:24px;color:#fff;margin-top:14px">{e(p['figure_label'])}</div>{f'<div style="font-size:19px;color:rgba(255,255,255,.6);margin-top:6px">{e(p["figure_note"])}</div>' if p.get('figure_note') else ''}</div>
+<div style="position:absolute;left:64px;right:64px;top:1080px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(224,185,64,.6);padding-top:22px">{price_block(p['price'], fs=56)}{cta_btn()}</div>
+{foot_seller()}'''
+
+def features(p):
+    """Photo, headline and three feature lines marked with the gold compass symbol."""
+    rows = ''.join(f'<div style="display:flex;align-items:center;gap:20px;margin-top:{0 if i==0 else 20}px"><img src="{SYM}" style="width:34px;height:34px;object-fit:contain"><div style="font-size:29px;line-height:1.25;color:#fff">{e(t)}</div></div>' for i,t in enumerate(p['features']))
+    return f'''{img(ph(p),0,0,1080,700,p.get('pos','center'))}<div style="position:absolute;top:580px;left:0;right:0;height:120px;background:linear-gradient(180deg,rgba(37,42,58,0),{NAVY})"></div>{badge(p.get('badge'))}
+<div style="position:absolute;top:690px;left:64px;right:64px">{eyebrow(p['town'])}<div class="serif" style="font-size:64px;line-height:1.05;color:#fff;margin-top:14px">{e(p['headline'])}</div><div style="margin-top:34px">{rows}</div></div>
+<div style="position:absolute;left:64px;right:64px;top:1085px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(224,185,64,.6);padding-top:22px">{price_block(p['price'], fs=56)}{cta_btn()}</div>
+{foot_seller()}'''
+
+def split(p):
+    """Portrait photo on the left half, navy panel with the 3-part gold strip stacked on the right."""
+    rows = ''.join(f'<div style="padding:18px 0;{"border-top:1px solid rgba(224,185,64,.5)" if i else ""}"><div class="serif" style="font-size:40px;line-height:1.05;color:{GOLD}">{e(a)}</div><div style="font-size:20px;line-height:1.35;color:rgba(255,255,255,.82);margin-top:6px">{e(b)}</div></div>' for i,(a,b) in enumerate(p['strip']))
+    return f'''{img(SP2/p['sphoto'],0,0,540,1350,p.get('pos','center'))}<div style="position:absolute;left:540px;top:0;right:0;bottom:0;background:url({RAYS}) center/220% no-repeat;opacity:.35"></div>
+<img src="{SYM}" style="position:absolute;top:64px;left:588px;width:56px;height:56px;object-fit:contain">
+<div style="position:absolute;top:170px;left:588px;right:56px">{eyebrow(p['eyebrow'])}<div class="serif" style="font-size:58px;line-height:1.08;color:#fff;margin-top:18px">{e(p['headline'])}</div><div style="margin-top:36px">{rows}</div>{f'<div style="font-size:24px;line-height:1.45;color:rgba(255,255,255,.85);margin-top:28px;padding-top:24px;border-top:1px solid rgba(224,185,64,.5)">{e(p["sub"])}</div>' if p.get('sub') else ''}</div>
+<div style="position:absolute;left:588px;right:56px;bottom:150px;border-top:1px solid rgba(255,255,255,.14);padding-top:20px"><div style="font-weight:600;font-size:17px;letter-spacing:.12em;color:{GOLD}">BOOK YOUR FREE VALUATION</div><div class="serif" style="font-size:34px;color:{GOLD};margin-top:4px">duncanure.co.uk/valuation</div></div><img src="{LOGO_W}" style="position:absolute;right:56px;bottom:56px;height:64px">'''
+
+def seller_light(p):
+    """Seller post on an off-white ground with navy type and a dark-gold strip."""
+    cols = ''.join(f'<div style="flex:1;min-width:0;{"padding-right:22px" if i==0 else "padding:0 22px;border-left:1px solid rgba(151,120,31,.5)"}"><div class="serif" style="font-size:{p.get("strip_fs",44)}px;line-height:1.05;color:{GOLDTXT}">{e(a)}</div><div style="font-size:19px;line-height:1.35;color:rgba(54,60,82,.85);margin-top:10px">{e(b)}</div></div>' for i,(a,b) in enumerate(p['strip']))
+    return f'''<div style="position:absolute;inset:0;background:{OFF}"></div>{img(SP2/p['sphoto'],0,0,1080,700,p.get('pos','center'))}<div style="position:absolute;left:0;right:0;top:700px;height:6px;background:{GOLD}"></div>
+<div style="position:absolute;top:750px;left:64px;right:64px">{eyebrow(p['eyebrow'], INK)}<div class="serif" style="font-size:64px;line-height:1.06;color:{INK};margin-top:16px">{e(p['headline'])}</div></div>
+<div style="position:absolute;top:1010px;left:64px;right:64px;display:flex">{cols}</div>
+<div style="position:absolute;left:64px;right:64px;bottom:56px;border-top:1px solid rgba(54,60,82,.14);padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-weight:600;font-size:18px;letter-spacing:.12em;color:{GOLDTXT}">BOOK YOUR FREE VALUATION</div><div class="serif" style="font-size:40px;color:{INK};margin-top:4px">duncanure.co.uk/valuation</div></div><img src="{LOGO_N}" style="height:52px"></div>'''
+
+def stat3(p):
+    """Off-white top with three navy stat cards, photo below."""
+    cards = ''.join(f'<div style="flex:1;background:{INK};border-radius:6px;padding:26px 24px"><div class="serif" style="font-size:58px;line-height:1;color:{GOLD}">{e(a)}</div><div style="font-weight:600;font-size:22px;color:#fff;margin-top:14px">{e(b)}</div></div>' for a,b in p['stats'])
+    return f'''<div style="position:absolute;inset:0;background:{OFF}"></div><div style="position:absolute;top:72px;left:64px;right:64px">{eyebrow(p['eyebrow'],INK)}<div class="serif" style="font-size:54px;line-height:1.08;color:{INK};margin-top:18px">{e(p['headline'])}</div><div style="display:flex;gap:20px;margin-top:30px">{cards}</div></div>
+{img(ph(p),0,520,1080,830,p.get('pos','center'))}<div style="position:absolute;top:900px;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(37,42,58,0),rgba(37,42,58,.92))"></div>
+<div class="serif" style="position:absolute;left:64px;bottom:170px;font-size:60px;line-height:1.08;color:#fff">{e(p['closing'])}</div>
+<div style="position:absolute;left:64px;bottom:64px;font-size:22px;color:rgba(255,255,255,.85)">Book a free valuation at <span style="color:{GOLD}">duncanure.co.uk/valuation</span></div><img src="{LOGO_W}" style="position:absolute;right:64px;bottom:64px;height:70px">'''
+
+R = dict(SELLER=seller, REVIEW2=review2, T1=t1, T5=t5, CTA=cta, REVIEW=review, STAT=stat,
+         HERO=hero, LIGHT=light, FIGURE=figure, FEATURES=features, SPLIT=split, SELLER_LIGHT=seller_light, STAT3=stat3)
 
 async def main():
     from playwright.async_api import async_playwright

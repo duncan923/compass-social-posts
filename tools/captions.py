@@ -15,7 +15,7 @@ def build(p):
         else:
             fb = [p['hook'], p['body'], f"Book a free valuation at {m.VAL_FB}", p['tags']]
             ig = [p['hook'], p['body'], "Book a free valuation: link in bio.", p['tags']]
-    return "\n\n".join(fb), "\n\n".join(ig)
+    return "\n\n".join(x for x in fb if x), "\n\n".join(x for x in ig if x)
 
 BANNED = r"\b(stunning|must-see|must be seen|rarely available|dream home|immaculate|nestled|boasts?|boasting|charming|deceptively spacious|viewing highly recommended|actually|certainly|absolutely|of course|unlock|leverage|seamless|game-changer|robust|comprehensive|cutting-edge|transformative|innovative|genuinely|conveyancer|freehold|leasehold|stamp duty|exchange of contracts|gazumping|completion|asking price|D&G)\b"
 def qc(t):
