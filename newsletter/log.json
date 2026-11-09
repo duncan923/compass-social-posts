@@ -20,5 +20,15 @@
   "send_date": "2026-11-05",
   "reason": "Local market fact: ONS (updated 21 Oct 2026) average house price in Dumfries and Galloway up 3.9% in year to August 2026, vs 2.9% for Scotland",
   "subject": "Dumfries and Galloway prices up 3.9%"
+ },
+ {
+  "type": "newsletter",
+  "issue": 7,
+  "send_date": "2026-11-10",
+  "pillar": "Selling advice (seller tips): preparing over winter for a spring sale",
+  "featured_listing": "Poets Corner, Palnackie (compass-estates.co.uk/property/784)",
+  "refer_a_friend": false,
+  "blog": "https://duncanure.co.uk/blog/sell-before-buying-scotland",
+  "subject": "The spring sale that starts in November"
  }
 ]
