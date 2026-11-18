@@ -37,5 +37,12 @@
   "reason": "Seasonal timing: Rightmove (press release 7 Jan 2026) recorded its busiest ever Boxing Day in 2025, and new listings rose 143% in the five days after Christmas; value now to be ready to list straight after Christmas",
   "subject": "Ready to sell when January buyers arrive",
   "hubspot_email_id": 1442482917616
+ },
+ {
+  "type": "valuation",
+  "send_date": "2026-11-19",
+  "reason": "Market fact: Bank of England raised Bank Rate to 4% on 5 November 2026 (Monetary Policy Summary, checked 18 Nov 2026); a price from earlier in the year may not be the right figure to plan around now",
+  "subject": "The rate rise and what your home is worth",
+  "hubspot_email_id": 1454907331799
  }
 ]
