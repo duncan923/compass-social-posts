@@ -44,5 +44,17 @@
   "reason": "Market fact: Bank of England raised Bank Rate to 4% on 5 November 2026 (Monetary Policy Summary, checked 18 Nov 2026); a price from earlier in the year may not be the right figure to plan around now",
   "subject": "The rate rise and what your home is worth",
   "hubspot_email_id": 1454907331799
+ },
+ {
+  "type": "newsletter",
+  "issue": 8,
+  "send_date": "2026-11-24",
+  "pillar": "Getting the price right: the Home Report as the benchmark, offers over and closing dates",
+  "featured_listing": null,
+  "featured_listing_note": "Omitted: compass-estates.co.uk could not be fetched in this run, so no live listing could be verified",
+  "refer_a_friend": false,
+  "blog": "https://duncanure.co.uk/blog/cash-house-buyers-scotland",
+  "subject": "The figure your buyer's bank already knows",
+  "hubspot_email_id": 1462975015153
  }
 ]
