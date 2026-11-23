@@ -48,12 +48,14 @@
  {
   "type": "newsletter",
   "issue": 8,
-  "send_date": "2026-11-24",
+  "send_date": "2026-11-23",
   "pillar": "Getting the price right: the Home Report as the benchmark, offers over and closing dates",
   "featured_listing": "1 Dee Avenue, Castle Douglas (compass-estates.co.uk/property/719)",
   "refer_a_friend": false,
   "blog": "https://duncanure.co.uk/blog/cash-house-buyers-scotland",
   "subject": "The figure your buyer's bank already knows",
-  "hubspot_email_id": 1462975015153
+  "hubspot_email_id": 1462975015153,
+  "preview_text": "How the Home Report shapes your asking price, plus a family semi in Castle Douglas",
+  "status": "sent by Duncan 2026-11-23 10:32 UTC"
  }
 ]
