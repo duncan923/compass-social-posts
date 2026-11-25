@@ -57,5 +57,12 @@
   "hubspot_email_id": 1462975015153,
   "preview_text": "How the Home Report shapes your asking price, plus a family semi in Castle Douglas",
   "status": "sent by Duncan 2026-11-23 10:32 UTC"
+ },
+ {
+  "type": "valuation",
+  "send_date": "2026-11-26",
+  "reason": "Market fact: Rightmove House Price Index (16 Nov 2026, via Mortgage Solutions, The Intermediary, Property Reporter and Reuters, checked 25 Nov 2026) reported the number of homes for sale at a 12-year high, the most choice for buyers since 2014; a valuation shows how a home would stand out against the competition",
+  "subject": "Buyers have the most choice since 2014",
+  "hubspot_email_id": 1466870580466
  }
 ]
